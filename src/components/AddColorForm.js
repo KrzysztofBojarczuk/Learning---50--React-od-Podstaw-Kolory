@@ -1,0 +1,35 @@
+import React, { useState, useRef } from 'react';
+import { useInput } from "./hooks";
+import { useColors } from "./ColorProvider";
+
+const AddColorForm = () => {
+    
+    const [titleProps, resetTitle] = useInput("");
+    const [colorProps, resetColor] = useInput("#000000");
+    const { addColor } = useColors();
+
+    const submit = e => {
+        e.preventDefault();
+        addColor(titleProps.value, colorProps.value);
+        resetTitle();
+        resetColor();
+      };
+
+    return (
+        <div>
+
+        <form onSubmit={submit}>
+      <input
+        {...titleProps}
+        type="text"
+        placeholder="color title..."
+        required
+        />
+      <input {...colorProps} type="color" required />
+      <button>ADD</button>
+    </form>
+        </div>
+    )
+}
+
+export default AddColorForm
